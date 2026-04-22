@@ -33,8 +33,8 @@ Below is a screenshot of the Postman test runner showing all tests passed, confi
 
 ## Postman Test Summary (Submission)
 
-- **Total Tests:** 27
-- **Passed:** 27
+- **Total Tests:** 54
+- **Passed:** 54
 - **Failed:** 0
 - **Status:** finished
 
