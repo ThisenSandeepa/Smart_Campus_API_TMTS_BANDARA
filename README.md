@@ -7,6 +7,12 @@
 
 ---
 
+## Video Demonstration
+
+[Watch the Smart Campus API Demonstration on YouTube](https://youtu.be/zBQKtr1WjL0)
+
+---
+
 ## API Discovery Endpoint (Web View)
 
 Below is a screenshot of the API Discovery endpoint as viewed in a browser. It shows the API status, student details, Postman test summary, and clickable links to Rooms, Sensors, and Sensor Readings.
