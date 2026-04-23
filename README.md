@@ -219,6 +219,82 @@ The robust logic validation constraints were rigorously confirmed via automated 
 
 ---
 
+## 5. Sample curl Commands
+
+The following commands demonstrate successful interactions with the API. Replace `http://localhost:8080/SmartCampusAPI` with your actual base URL.
+
+*1. GET — API Discovery endpoint*
+```bash
+curl -X GET http://localhost:8080/SmartCampusAPI/api/v1/ \
+  -H "Accept: application/json"
+```
+
+*2. POST — Create a new Room*
+```bash
+curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/rooms \
+  -H "Content-Type: application/json" \
+  -d '{"id": "RM_A01", "name": "Science Lecture Theatre", "capacity": 200}'
+```
+
+*3. POST — Register a new Sensor (links to RM_A01)*
+```bash
+curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors \
+  -H "Content-Type: application/json" \
+  -d '{"id": "SENS_T01", "type": "Temperature", "status": "ACTIVE", "roomId": "RM_A01"}'
+```
+
+*4. GET — Filter sensors by type*
+```bash
+curl -X GET "http://localhost:8080/SmartCampusAPI/api/v1/sensors?type=Temperature" \
+  -H "Accept: application/json"
+```
+
+*5. POST — Add a sensor reading (updates parent sensor's currentValue)*
+```bash
+curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors/SENS_T01/readings \
+  -H "Content-Type: application/json" \
+  -d '{"value": 24.1}'
+```
+
+*6. DELETE — Attempt to delete a room that still has sensors (returns 409 Conflict)*
+```bash
+curl -X DELETE http://localhost:8080/SmartCampusAPI/api/v1/rooms/RM_A01 \
+  -H "Accept: application/json"
+```
+
+*7. POST — Attempt to register a sensor with a non-existent roomId (returns 422)*
+```bash
+curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors \
+  -H "Content-Type: application/json" \
+  -d '{"id": "SENS_INV", "type": "Humidity", "status": "ACTIVE", "roomId": "INVALID_ROOM"}'
+```
+
+*8. POST — Attempt to add a reading to a MAINTENANCE sensor (returns 403 Forbidden)*
+```bash
+curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors/SENS_M01/readings \
+  -H "Content-Type: application/json" \
+  -d '{"value": 100.0}'
+```
+
+---
+
+## Known Limitations
+
+- Data is not persistent; restarting the server will reset all rooms, sensors, and readings.
+- No authentication or authorization is implemented, as not required by the coursework.
+- Not intended for production use without further enhancements.
+
+---
+
+## How to Extend
+
+- Integrate with a database for persistent storage.
+- Add user authentication and role-based access control.
+- Implement advanced search/filtering and pagination for large datasets.
+- Deploy to a cloud platform for scalability and reliability.
+
+---
+
 ## Full List of Tested API Endpoints (from Postman test run)
 
 1. **GET** `/api/v1/` — Check System Discovery / HATEOAS
