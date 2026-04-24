@@ -97,7 +97,7 @@ This RESTful API manages the university's "Smart Campus" initiative — a campus
 - Java JDK 11 or higher
 - Apache Maven
 - Apache NetBeans IDE
-- GlassFish or Payara Server
+- Tomcat Server
 
 ### Steps
 
